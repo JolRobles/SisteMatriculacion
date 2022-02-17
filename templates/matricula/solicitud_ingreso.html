@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% block content %}
+<!-- page content -->
+<div class="right_col" role="main">
+  <div class="">
+    <div class="page-title">
+      <div class="title_left">
+        <!-- <h3>Form Upload </h3> -->
+      </div>
+
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row document">
+      <div class="col-md-12 col-sm-12  ">
+        <div class="x_panel" id="imprimir">
+          <img src="{% static 'images/logomineduc.png' %}" class="float" alt="..." width="200" height="100" >
+            <img align="right" src="{% static 'images/logo_sanjuanbautista.jpeg' %}" class="float" alt="..." width="100" height="100" >
+            <h3 align="center">DIÓCESIS DE LOJA</h3>
+            <h3 align="center">UNIDAD EDUCATIVA FISCOMISIONAL "SAN JUAN BAUTISTA"</h3>
+            <h2 align="center">San José - Catamayo - Loja - Ecuador</h2>
+            <h2 align="center">Telefax: 2558 - 198</h2>
+            <br/>
+            <h2 align="right">Catamayo, {{ solicitud.fecha }}</h2>
+            <div class="clearfix"></div>
+          <div class="x_content">
+            <h1  align="center"><strong>SOLICITUD DE INGRESO</strong></h1>
+            <br/>
+            <h2>P. Lcdo.</h2>
+            <h2>{{ solicitud.rector.first_name }} {{ solicitud.rector.last_name }}</h2>
+            <h2>RECTOR DE LA UNIDAD EDUCATIVA FISCOMISIONAL "SAN JUAN BAUTISTA"</h2>
+            <h2>Catamayo</h2>
+            <br />
+            <br />
+            <h2>Señor Rector:</h2>
+            <h2 style="text-align: justify">   Yo, {{solicitud.representante.representante.usuario.apellidos }} {{solicitud.representante.representante.usuario.nombres }}  Representante legal del señor (srta.) estudiante
+                {{solicitud.estudiante.usuario.apellidos}} {{solicitud.estudiante.usuario.nombres}}, me dirijo a usted para solicitarle muy comedidamente se digne aceptar a
+                mi representado para que ingrese al {{solicitud.curso}} del paralelo {{solicitud.paralelo.nombre}} de la institucion
+                de su regencia, en el presente Año Lectivo {{solicitud.ciclo_lectivo}}
+            </h2>
+            <br />
+            <h2>La presente matricula corresponde a:</h2>
+            <div class="col-md-12 col-sm-12">
+              <div class="col-md-6 col-sm-6">
+                <h2 align = "center">TIPO DE MATRICULA</h2>
+                <h2 align = "center">{{solicitud.get_tipo_matricula_display}}</h2>
+              </div>
+              <div class="col-md-5 col-sm-5">
+                <h2 align = "center">VIENE DE OTRA INSTITUCIÓN</h2>
+                <h2 align = "center">{{solicitud.get_viene_otra_institucion_display}}</h2>
+            </div>
+          </div>
+            <br />
+            <h2>Por la favorable atencion que de a la presente le anticipo mis debidos agradecimientos</h2>
+            <br />
+            <h2 align = "center">Muy Atentamente</h2>
+            <br />
+            <br />
+            <br />
+            <p align="center">-------------------------</p>
+            <h2 align = "center">{{solicitud.representante.representante.usuario.nombres }} {{solicitud.representante.representante.usuario.apellidos }}</h2>
+            <h2 align = "center">REPRESENTANTE</h2>
+            <h2 align = "center">C.C. {{solicitud.representante.representante.usuario.ci_ruc }}</h2>
+            <br />
+            <br />
+            <h2>Analizada la petición que antedece y por considerarla legar, se aprueba lo solicitado.</h2>
+            <h2>Catamayo, {{ solicitud.f_aceptacion }}</h2>
+            <br />
+            <br />
+            <br />
+            <p align = "center">------------------------</p>
+            <h2 align = "center">{{ solicitud.rector.first_name }} {{ solicitud.rector.last_name }}</h2>
+            <h2 align = "center">RECTOR</h2>
+          </div>
+
+        </div>
+        <a type="button" onclick="javascript:printDiv('imprimir')" type='GET'>
+            <span class="btn btn-primary btn-xs glyphicon glyphicon-print" aria-hidden="true" title="Imprimir"></span>
+          </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /page content -->
+{% endblock content %}
+{% block javascripts %}
+{{ block.super }}
+  <script type="text/javascript">
+    function printDiv(imprimir) {
+     var contenido= document.getElementById(imprimir).innerHTML;
+     var contenidoOriginal= document.body.innerHTML;
+
+     document.body.innerHTML = contenido;
+
+     window.print();
+
+     document.body.innerHTML = contenidoOriginal;
+}
+  </script>
+{% endblock %}
